@@ -1,0 +1,387 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style>
+<title>بروفة الحج</title>
+<meta name="description" content="امشِ رحلة الحج على الخريطة الحقيقية للمشاعر قبل ما تسافر: منى، عرفات، مزدلفة، الجمرات، والوداع، بتسع لغات. فكرة وتنفيذ حسام حسين بخش.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="بروفة الحج · امشِ رحلتك قبل ما تسافر">
+<meta property="og:description" content="الخريطة الحقيقية للمشاعر، ست محطات، تسع لغات. فكرة وتنفيذ حسام حسين بخش.">
+<meta property="og:url" content="https://hosam382.github.io/hajj-rehearsal/">
+<meta property="og:image" content="https://hosam382.github.io/hajj-rehearsal/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0908">
+</head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
+<style>
+/* بروفة الحج: عالم ثلاثي الأبعاد للمشاعر يتغيّر وقته مع كل محطة (فجر، ظهر، غروب، ليل، صباح). شكل واحد داكن سينمائي، مقصود. */
+:root{
+  --ink:#fbf6ec;--ink2:rgba(251,246,236,.74);--glass:rgba(16,14,12,.62);--line:rgba(251,246,236,.18);--gold:#f1c27d;--accent:#e9a24a;
+  --display:'Reem Kufi','IBM Plex Sans Arabic',system-ui,sans-serif;--body:'IBM Plex Sans Arabic',system-ui,'Segoe UI',Tahoma,sans-serif;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:#0d0b0a;color:var(--ink);font:400 16px/1.65 var(--body);overflow:hidden}
+h1,h2,h3,p{margin:0}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+.vig{position:fixed;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.55))}
+.labels{position:fixed;inset:0;pointer-events:none}
+.lbl{position:absolute;transform:translate(-50%,-100%);font:700 14px/1.2 var(--body);padding:4px 10px;border-radius:999px;background:rgba(10,9,8,.55);border:1px solid var(--line);white-space:nowrap;transition:opacity .4s}
+.lbl.camp{background:#c9472c;border-color:#ffd7c9;color:#fff}
+/* البداية */
+#intro{position:fixed;inset:0;display:grid;align-content:end;padding:0 max(20px,env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,transparent 30%,rgba(8,7,6,.78));transition:opacity .8s,visibility 0s .8s}
+#intro.gone{opacity:0;visibility:hidden}
+.hero{max-width:1100px;margin:0 auto;width:100%;display:grid;gap:14px}
+.hero .k{font:500 15px/1.3 var(--body);color:var(--gold);letter-spacing:.02em}
+.hero h1{font:700 clamp(64px,13vw,168px)/.95 var(--display);text-shadow:0 10px 60px rgba(0,0,0,.45)}
+.hero p{max-width:56ch;color:var(--ink2);font-size:clamp(16px,2vw,19px)}
+.form{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-top:6px}
+.form label{display:grid;gap:4px;font-size:13px;color:var(--ink2);min-width:0}
+.form select,.form input{min-height:48px;border-radius:12px;border:1px solid var(--line);background:rgba(16,14,12,.6);padding:8px 12px;font-size:16px;backdrop-filter:blur(8px)}
+.form input{width:220px;max-width:100%}
+.go{min-height:52px;padding:0 26px;border-radius:999px;border:0;background:var(--gold);color:#1a120a;font-weight:700;font-size:17px}
+.by{font-size:13px;color:var(--ink2)}
+/* المحطة */
+#panel{position:fixed;inset-inline-start:max(20px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));width:min(440px,calc(100% - 40px));max-height:calc(100% - 120px);overflow:auto;background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:18px 20px;backdrop-filter:blur(14px);display:grid;gap:10px;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .6s cubic-bezier(.16,1,.3,1)}
+#panel.on{opacity:1;transform:none}
+#panel[hidden]{display:none}
+.day{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--gold)}
+#panel h2{font:700 clamp(28px,4vw,38px)/1.15 var(--display)}
+#panel .body{color:var(--ink);font-size:16.5px}
+.tip{border-top:1px solid var(--line);padding-top:10px;font-size:15px;color:var(--ink2)}
+.tip b{color:var(--gold);font-weight:700}
+.nav{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:4px}
+.nav .btn{min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:500}
+.nav .btn.main{background:var(--gold);color:#1a120a;border-color:var(--gold);font-weight:700}
+.nav .btn[disabled]{opacity:.4;cursor:default}
+.dots{display:flex;gap:6px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--gold)}
+/* المرشد */
+#guideBtn{position:fixed;inset-inline-end:max(20px,env(safe-area-inset-right,0px));top:calc(18px + env(safe-area-inset-top,0px));min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(12px);font-weight:700}
+#guide{position:fixed;inset-inline-end:max(20px,env(safe-area-inset-right,0px));top:calc(74px + env(safe-area-inset-top,0px));width:min(380px,calc(100% - 40px));max-height:min(60vh,520px);display:grid;grid-template-rows:auto 1fr auto auto;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:16px;backdrop-filter:blur(14px)}
+#guide h3{font:700 20px/1.3 var(--display)}
+#chat{overflow:auto;display:grid;gap:8px;align-content:start;min-height:60px}
+.m{padding:8px 12px;border-radius:12px;max-width:92%;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px}
+.m.u{background:rgba(241,194,125,.18);justify-self:end}
+.m.a{background:rgba(255,255,255,.07);justify-self:start}
+.ask{display:grid;grid-template-columns:1fr auto;gap:8px}
+.ask input{min-height:46px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.3);padding:8px 12px;min-width:0}
+.ask button{min-height:46px;padding:0 16px;border-radius:12px;border:0;background:var(--gold);color:#1a120a;font-weight:700}
+.note{font-size:12.5px;color:var(--ink2)}
+.credit{position:fixed;inset-inline-end:max(10px,env(safe-area-inset-right,0px));bottom:calc(4px + env(safe-area-inset-bottom,0px));font-size:10.5px;color:rgba(251,246,236,.55);pointer-events:none;direction:ltr}
+.busy{position:fixed;inset-inline:0;top:calc(18px + env(safe-area-inset-top,0px));margin:auto;width:max-content;max-width:calc(100% - 40px);padding:8px 16px;border-radius:999px;background:var(--glass);border:1px solid var(--line);font-size:14px}
+@media (max-width:640px){
+  #panel{inset-inline:max(12px,env(safe-area-inset-left,0px));width:auto;max-height:52vh;padding:14px 16px}
+  #guide{inset-inline:max(12px,env(safe-area-inset-left,0px));width:auto}
+  .lbl{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<canvas id="gl" aria-label="مشهد ثلاثي الأبعاد للمشاعر المقدسة"></canvas>
+<div class="vig"></div>
+<div class="labels" id="labels"></div>
+
+<section id="intro">
+  <div class="hero">
+    <p class="k" id="tK">قبل السفر · لكل حاج في الحملة</p>
+    <h1 id="tH">بروفة الحج</h1>
+    <p id="tP">امشِ مسار حملتك قبل ما تسافر: مخيمك في منى، وعرفات، ومزدلفة، والجمرات. وكل محطة يشرحها لك مرشد بلغتك.</p>
+    <div class="form">
+      <label for="lang"><span id="tL">لغتك</span><select id="lang"></select></label>
+      <label for="camp"><span id="tC">رقم مخيمك في منى</span><input id="camp" maxlength="40" autocomplete="off" placeholder="مثال: ٤٥ · شارع ٢٠٤"></label>
+      <button class="go" id="start" type="button">ابدأ البروفة</button>
+    </div>
+    <p class="by">نموذج تجريبي · فكرة وتنفيذ حسام حسين بخش · الأرض من صور أقمار صناعية حقيقية، والمسار تقريبي للتعريف</p>
+  </div>
+</section>
+
+<section id="panel" hidden aria-live="polite">
+  <div class="day"><span id="pDay"></span><span id="pTime"></span></div>
+  <h2 id="pTitle"></h2>
+  <p class="body" id="pBody"></p>
+  <p class="tip" id="pTip"></p>
+  <div class="nav"><button class="btn" id="prev" type="button"></button><div class="dots" id="dots"></div><button class="btn main" id="next" type="button"></button></div>
+</section>
+
+<button id="guideBtn" type="button" hidden>اسأل المرشد</button>
+<section id="guide" hidden>
+  <h3 id="gH">مرشدك</h3>
+  <div id="chat"></div>
+  <div class="ask"><input id="q" maxlength="300" autocomplete="off" dir="auto"><button id="qGo" type="button">اسأل</button></div>
+  <p class="note" id="gN">المرشد يعرّفك بالمناسك. للفتوى ارجع إلى «نسك AI» أو المرشد الشرعي في حملتك.</p>
+</section>
+<p class="busy" id="busy" hidden></p>
+<p class="credit">صور الأقمار الصناعية: Esri, Maxar, Earthstar Geographics · التضاريس: AWS Terrain Tiles</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="tr.js"></script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  /* ---------- المحتوى ---------- */
+  const LANGS = { ar: ['العربية', 'rtl'], en: ['English', 'ltr'], ur: ['اردو', 'rtl'], id: ['Bahasa Indonesia', 'ltr'], bn: ['বাংলা', 'ltr'], tr: ['Türkçe', 'ltr'], fa: ['فارسی', 'rtl'], ha: ['Hausa', 'ltr'], fr: ['Français', 'ltr'] };
+  const AR = {
+    ui: { k: 'قبل السفر · لكل حاج في الحملة', h: 'بروفة الحج', p: 'امشِ مسار حملتك قبل ما تسافر: مخيمك في منى، وعرفات، ومزدلفة، والجمرات. وكل محطة يشرحها لك مرشد بلغتك.', lang: 'لغتك', camp: 'رقم مخيمك في منى', start: 'ابدأ البروفة', next: 'التالي', prev: 'السابق', end: 'من البداية', guide: 'اسأل المرشد', gh: 'مرشدك', ask: 'اسأل', q: 'اسأل عن هذي المحطة…', note: 'المرشد يعرّفك بالمناسك. للفتوى ارجع إلى «نسك AI» أو المرشد الشرعي في حملتك.', yourCamp: 'مخيمك', tipW: 'نصيحة' },
+    st: [
+      { day: '٨ ذي الحجة · يوم التروية', time: 'الضحى', title: 'منى', body: 'تتوجه الحملة إلى منى وتنزل في مخيمها. تصلي فيها الظهر والعصر والمغرب والعشاء وفجر اليوم التاسع، كل صلاة في وقتها، والرباعية ركعتين.', tip: 'خيام منى متشابهة جداً. احفظ رقم مخيمك واسم الشارع، وخلّ بطاقتك معك دائماً.' },
+      { day: '٩ ذي الحجة · يوم عرفة', time: 'الظهر حتى الغروب', title: 'عرفات', body: 'بعد شروق الشمس تتجه إلى عرفات. تصلي الظهر والعصر جمعاً وقصراً، وتبقى داخل حدود عرفة حتى تغرب الشمس، تكثر من الدعاء. هذا أعظم أيام الحج.', tip: 'الوقوف يصح في أي مكان داخل حدود عرفة، فلا تصعد جبل الرحمة في الحر. اشرب ماء كثيراً واجلس في الظل.' },
+      { day: 'ليلة العاشر', time: 'بعد الغروب', title: 'مزدلفة', body: 'بعد الغروب تنفر إلى مزدلفة. تصلي فيها المغرب والعشاء جمعاً، وتبيت فيها، وتلتقط الحصى الصغير لرمي الجمرات.', tip: 'وقت النفرة زحمة كبيرة. ابقَ مع مجموعتك ولا تبتعد عن مشرفك.' },
+      { day: '١٠ ذي الحجة · يوم النحر', time: 'الصباح', title: 'جمرة العقبة', body: 'ترمي جمرة العقبة بسبع حصيات، ثم الهدي، ثم الحلق أو التقصير، ثم طواف الإفاضة والسعي في المسجد الحرام.', tip: 'التزم بالوقت المحدد لحملتك في الرمي، وامشِ مع مجموعتك في المسار المخصص.' },
+      { day: '١١ – ١٣ ذي الحجة · أيام التشريق', time: 'بعد الزوال', title: 'الجمرات الثلاث', body: 'تبيت في منى، وترمي كل يوم بعد الزوال الجمرات الثلاث: الصغرى ثم الوسطى ثم العقبة، سبع حصيات لكل جمرة. ومن تعجّل يخرج من منى قبل غروب يوم ١٢.', tip: 'الرمي بعد الزوال وقت حار. اسأل مشرفك عن وقت حملتك واحمل مظلة.' },
+      { day: 'قبل السفر', time: 'الختام', title: 'طواف الوداع', body: 'آخر ما تفعله قبل أن تغادر مكة: طواف الوداع حول الكعبة في المسجد الحرام.', tip: 'تقبّل الله منك. شارك هذي البروفة مع من سيحج بعدك.' },
+    ],
+  };
+  let L = 'ar', T = AR, camp = '';
+
+  /* ---------- المشهد: الأرض الحقيقية للمشاعر ----------
+     صور أقمار صناعية حقيقية فوق تضاريس حقيقية. وحدة المشهد = ١٠٠ متر، والارتفاع مضخّم ١٫٦ مرة ليبان. */
+  const GEO = { x0: 0.6105972222222222, y0: 0.43901279883310845, x1: 0.6111111111111112, y1: 0.4393021727835158, W: 191.8, D: 108.0, lo: 213, hi: 930, ex: 1.6 };
+  const cv = $('gl');
+  const R = new THREE.WebGLRenderer({ canvas: cv, antialias: true, powerPreference: 'high-performance' });
+  R.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); R.outputEncoding = THREE.sRGBEncoding;
+  const S = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(42, 1, .2, 1200);
+  S.fog = new THREE.Fog(0xe9c9a0, 90, 360);
+
+  const skyU = { top: { value: new THREE.Color() }, bot: { value: new THREE.Color() }, sun: { value: new THREE.Vector3(0, .3, -1) }, sunC: { value: new THREE.Color() } };
+  S.add(new THREE.Mesh(new THREE.SphereGeometry(800, 32, 16), new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, fog: false, uniforms: skyU,
+    vertexShader: 'varying vec3 v;void main(){v=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+    fragmentShader: 'uniform vec3 top,bot,sunC;uniform vec3 sun;varying vec3 v;void main(){float h=clamp(v.y*1.6+.15,0.,1.);vec3 c=mix(bot,top,pow(h,.7));float s=max(dot(v,normalize(sun)),0.);c+=sunC*pow(s,220.)*1.1+sunC*pow(s,8.)*.18;gl_FragColor=vec4(c,1.);}' })));
+  const hemi = new THREE.HemisphereLight(0xfff3e0, 0x6a5440, .6); S.add(hemi);
+  const sun = new THREE.DirectionalLight(0xffe2b8, .9); S.add(sun);
+
+  // من خط الطول والعرض إلى المشهد (إسقاط مركاتور نفسه اللي في الصورة)
+  function uvOf(lat, lon) { const x = (lon + 180) / 360, s = Math.sin(lat * Math.PI / 180), y = .5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI); return [(x - GEO.x0) / (GEO.x1 - GEO.x0), (y - GEO.y0) / (GEO.y1 - GEO.y0)]; }
+  let DEM = null, DW = 0, DH = 0;
+  function elevUV(u, v) {
+    if (!DEM) return 0;
+    const x = Math.min(DW - 1.001, Math.max(0, u * (DW - 1))), y = Math.min(DH - 1.001, Math.max(0, v * (DH - 1))), i = Math.floor(x), j = Math.floor(y), fx = x - i, fy = y - j;
+    const a = DEM[j * DW + i], b = DEM[j * DW + i + 1], c = DEM[(j + 1) * DW + i], d = DEM[(j + 1) * DW + i + 1];
+    const m = (a * (1 - fx) + b * fx) * (1 - fy) + (c * (1 - fx) + d * fx) * fy;
+    return (m - 300) / 100 * GEO.ex;
+  }
+  const height = (x, z) => elevUV(x / GEO.W + .5, z / GEO.D + .5);
+  function LL(lat, lon, up = 0) { const [u, v] = uvOf(lat, lon), x = (u - .5) * GEO.W, z = (v - .5) * GEO.D; return new THREE.Vector3(x, elevUV(u, v) + up, z); }
+
+  const PL = {
+    haram: [21.4225, 39.8262], jamarat: [21.4204, 39.8726], mina: [21.4133, 39.8933], camp: [21.4155, 39.8880], minaSE: [21.39639, 39.9075],
+    muzd: [21.38223, 39.92071], s2: [21.373, 39.94054], s3: [21.36069, 39.95904], namirah: [21.3536, 39.9668], rahmah: [21.3549, 39.9842],
+    mzA: [21.38408, 39.91675], mzB: [21.36192, 39.95771],
+  };
+  const G = (k, up) => LL(PL[k][0], PL[k][1], up);
+
+  // الأرض: تُبنى بعد ما تتحمّل الصورتان
+  let ground = null, campPos = new THREE.Vector3(), pathCurve = null;
+  const walker = new THREE.Mesh(new THREE.SphereGeometry(.22, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffffff, fog: false })); walker.renderOrder = 3; S.add(walker);
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(.6, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffd49a, transparent: true, opacity: .22, depthWrite: false, fog: false })); walker.add(halo);
+  const beam = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, 24, 8, 1, true), new THREE.MeshBasicMaterial({ color: 0xff8a5c, transparent: true, opacity: .55, depthWrite: false, fog: false })); S.add(beam);
+  const dotC = document.createElement('canvas'); dotC.width = dotC.height = 64; { const dx = dotC.getContext('2d'), gr = dx.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,240,210,1)'); gr.addColorStop(.25, 'rgba(255,200,120,.9)'); gr.addColorStop(1, 'rgba(255,170,80,0)'); dx.fillStyle = gr; dx.fillRect(0, 0, 64, 64); }
+  const dotTex = new THREE.CanvasTexture(dotC);
+  const lights = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({ color: 0xffffff, map: dotTex, size: .7, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })); lights.renderOrder = 3; S.add(lights);
+  const pillar = new THREE.Mesh(new THREE.BoxGeometry(.35, 1.6, .35), new THREE.MeshLambertMaterial({ color: 0xffffff, emissive: 0x444444 })); S.add(pillar);
+
+
+  /* طبقات دقيقة: صور أقمار صناعية بدقة متر تقريباً لأماكن المحطات، تذوب حوافها في الخريطة الأساسية */
+  const PATCHES = [
+    { f: 'p-mina.jpg', w: 39.866, e: 39.910, s: 21.398, n: 21.424 },
+    { f: 'p-arafat.jpg', w: 39.955, e: 39.995, s: 21.343, n: 21.366 },
+    { f: 'p-muzd.jpg', w: 39.908, e: 39.962, s: 21.358, n: 21.392 },
+    { f: 'p-haram.jpg', w: 39.817, e: 39.836, s: 21.413, n: 21.431 },
+  ];
+  const edgeC = document.createElement('canvas'); edgeC.width = edgeC.height = 256;
+  { const x = edgeC.getContext('2d'), im = x.createImageData(256, 256); for (let j = 0; j < 256; j++) for (let i = 0; i < 256; i++) { const e = Math.min(i, j, 255 - i, 255 - j) / 255, a = Math.min(1, e / .08), v = Math.round(a * a * (3 - 2 * a) * 255), k = (j * 256 + i) * 4; im.data[k] = im.data[k + 1] = im.data[k + 2] = v; im.data[k + 3] = 255; } x.putImageData(im, 0, 0); }
+  const edgeTex = new THREE.CanvasTexture(edgeC);
+  function addPatch(P, tex) {
+    const [u0, v0] = uvOf(P.n, P.w), [u1, v1] = uvOf(P.s, P.e), x0 = (u0 - .5) * GEO.W, z0 = (v0 - .5) * GEO.D, x1 = (u1 - .5) * GEO.W, z1 = (v1 - .5) * GEO.D;
+    const geo = new THREE.PlaneGeometry(x1 - x0, z1 - z0, Math.ceil((x1 - x0) * 6), Math.ceil((z1 - z0) * 6)); geo.rotateX(-Math.PI / 2); geo.translate((x0 + x1) / 2, 0, (z0 + z1) / 2);
+    const p = geo.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, height(p.getX(i), p.getZ(i)) + .02);
+    geo.computeVertexNormals();
+    tex.encoding = THREE.sRGBEncoding; tex.anisotropy = R.capabilities.getMaxAnisotropy();
+    const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, alphaMap: edgeTex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
+    m.renderOrder = 1; S.add(m);
+  }
+  async function loadPatches() { const L2 = new THREE.TextureLoader(); for (const P of PATCHES) { try { addPatch(P, await new Promise((res, rej) => L2.load(P.f, res, undefined, rej))); } catch (e) { } } }
+
+  function build(satTex) {
+    const geo = new THREE.PlaneGeometry(GEO.W, GEO.D, 380, 214); geo.rotateX(-Math.PI / 2);
+    const p = geo.attributes.position;
+    for (let i = 0; i < p.count; i++) p.setY(i, height(p.getX(i), p.getZ(i)));
+    geo.computeVertexNormals();
+    satTex.encoding = THREE.sRGBEncoding; satTex.anisotropy = R.capabilities.getMaxAnisotropy();
+    ground = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: satTex })); S.add(ground);
+    // حافة الخريطة تذوب في الضباب: حلقة أرض مسطحة بلون الصحراء
+    const skirt = new THREE.Mesh(new THREE.RingGeometry(70, 900, 64, 1), new THREE.MeshLambertMaterial({ color: 0x5f5040 })); skirt.rotation.x = -Math.PI / 2; skirt.position.y = -1.2; S.add(skirt);
+    campPos = G('camp'); beam.position.set(campPos.x, campPos.y + 12, campPos.z);
+    const r = G('rahmah'); pillar.position.set(r.x, r.y + .8, r.z);
+    // المسار: من الحرم إلى الجمرات ومنى، ثم مع الوادي عبر مزدلفة إلى عرفات
+    pathCurve = new THREE.CatmullRomCurve3(['haram', 'jamarat', 'camp', 'minaSE', 'muzd', 's2', 's3', 'namirah', 'rahmah'].map((k) => G(k, .6)));
+    const pts = pathCurve.getPoints(600).map((q) => { q.y = Math.max(q.y, height(q.x, q.z) + .5); return q; });
+    S.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 600, .1, 6), new THREE.MeshBasicMaterial({ color: 0xffd49a, transparent: true, opacity: .7, fog: false }))).renderOrder = 2;
+    // أنوار مزدلفة على امتداد الوادي
+    const A = G('mzA'), B = G('mzB'), dir = new THREE.Vector3().subVectors(B, A), nrm = new THREE.Vector3(-dir.z, 0, dir.x).normalize(), N = 2600, lp = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) { const t = Math.random(), o = (Math.random() - .5) * 13 * (.6 + .4 * Math.sin(t * Math.PI)), x = A.x + dir.x * t + nrm.x * o, z = A.z + dir.z * t + nrm.z * o; lp.set([x, height(x, z) + .3, z], i * 3); }
+    lights.geometry.setAttribute('position', new THREE.BufferAttribute(lp, 3));
+    loadPatches();
+  }
+
+  /* ---------- المحطات: مكان الكاميرا والوقت ---------- */
+  const TIMES = {
+    dawn: { top: 0x7aa0c8, bot: 0xf2c79a, sun: [-1, .3, -.4], sunC: 0xffc489, fog: 0xe3c49c, hemi: .5, light: .9, lights: 0 },
+    noon: { top: 0x3f78bf, bot: 0xd9c7a6, sun: [.45, .7, -.5], sunC: 0xfff0d8, fog: 0xd9c8aa, hemi: .55, light: 1.0, lights: 0 },
+    dusk: { top: 0x2c3a66, bot: 0xf09a5a, sun: [1, .08, .2], sunC: 0xff8a4a, fog: 0xb98060, hemi: .45, light: .6, lights: .3 },
+    night: { top: 0x070b1a, bot: 0x1d2440, sun: [0, -.2, 1], sunC: 0x000000, fog: 0x121830, hemi: .12, light: .05, lights: 1 },
+    morn: { top: 0x5a8cc8, bot: 0xeccfa4, sun: [-.7, .45, -.4], sunC: 0xffe2b0, fog: 0xdcc39b, hemi: .52, light: .95, lights: 0 },
+  };
+  let ST = [], HOME = null, labels = [];
+  function stations() {
+    const mid = (a, b) => G(a).add(G(b)).multiplyScalar(.5);
+    ST = [
+      { time: 'dawn', at: G('camp'), cam: [9, 7.5, 12.5], u: 2 / 8 },
+      { time: 'noon', at: mid('namirah', 'rahmah'), cam: [-15, 11, 15], u: 1 },
+      { time: 'night', at: G('muzd'), cam: [-22, 16, 26], u: 4 / 8 },
+      { time: 'morn', at: G('jamarat'), cam: [7, 8, 11], u: 1 / 8 },
+      { time: 'noon', at: mid('jamarat', 'camp'), cam: [-6, 18, -24], u: 1.5 / 8 },
+      { time: 'dusk', at: G('haram'), cam: [9, 6.5, 8], u: 0 },
+    ];
+    HOME = { time: 'dawn', at: new THREE.Vector3(0, 0, 0), cam: [-70, 80, 105] };
+    labels = [{ key: 0, p: G('mina', 3) }, { key: 1, p: G('rahmah', 3.5) }, { key: 2, p: G('muzd', 3) }, { key: 3, p: G('jamarat', 3) }, { key: 5, p: G('haram', 4) }];
+  }
+
+  /* ---------- حركة الكاميرا وتبديل الوقت ---------- */
+  const cur = { at: new THREE.Vector3(), cam: new THREE.Vector3(-70, 80, 105) };
+  let from = null, to = null, t0 = 0, dur = 3200, walkU = .25, walkFrom = .25, walkTo = .25, ready = false;
+  const env = { a: TIMES.dawn, b: TIMES.dawn, k: 1 };
+  const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function goTo(s) {
+    from = { at: cur.at.clone(), cam: cur.cam.clone() };
+    to = { at: s.at.clone(), cam: s.at.clone().add(new THREE.Vector3(...s.cam)) };
+    env.a = mixEnv(env.a, env.b, env.k); env.b = TIMES[s.time]; env.k = 0;
+    walkFrom = walkU; walkTo = s.u == null ? walkU : s.u; t0 = performance.now(); dur = reduce ? 1 : 3600;
+  }
+  function mixEnv(a, b, k) { const o = {}; for (const key of Object.keys(a)) { const x = a[key], y = b[key]; if (Array.isArray(x)) o[key] = x.map((v, i) => v + (y[i] - v) * k); else if (key === 'hemi' || key === 'light' || key === 'lights') o[key] = x + (y - x) * k; else o[key] = new THREE.Color(x).lerp(new THREE.Color(y), k).getHex(); } return o; }
+  function applyEnv() {
+    const e = mixEnv(env.a, env.b, env.k);
+    skyU.top.value.setHex(e.top); skyU.bot.value.setHex(e.bot); skyU.sun.value.set(...e.sun); skyU.sunC.value.setHex(e.sunC);
+    S.fog.color.setHex(e.fog); hemi.intensity = e.hemi; sun.intensity = e.light; sun.color.setHex(e.sunC || 0x223355); sun.position.set(e.sun[0] * 100, Math.max(10, e.sun[1] * 100), e.sun[2] * 100);
+    lights.material.opacity = e.lights;
+  }
+  function resize() { const w = innerWidth, h = innerHeight; R.setSize(w, h, false); cam.aspect = w / h; cam.fov = w < 640 ? 55 : 42; cam.updateProjectionMatrix(); }
+  addEventListener('resize', resize); resize();
+
+  let lblEls = [];
+  const campLbl = document.createElement('span'); campLbl.className = 'lbl camp'; $('labels').append(campLbl);
+  const v3 = new THREE.Vector3();
+  function placeLabels() {
+    const W = innerWidth, H = innerHeight;
+    const put = (e, p, show) => { v3.copy(p).project(cam); const vis = show && v3.z < 1 && Math.abs(v3.x) < 1.05 && Math.abs(v3.y) < 1.05; e.style.opacity = vis ? 1 : 0; if (vis) { e.style.left = ((v3.x + 1) / 2 * W) + 'px'; e.style.top = ((1 - v3.y) / 2 * H) + 'px'; } };
+    labels.forEach((l, i) => put(lblEls[i], l.p, started));
+    put(campLbl, new THREE.Vector3(campPos.x, campPos.y + 3, campPos.z), started);
+  }
+  let started = false;
+  function loop(now) {
+    if (to) {
+      const k = Math.min(1, (now - t0) / dur), e = ease(k);
+      cur.at.lerpVectors(from.at, to.at, e);
+      // الكاميرا تطير فوق الوادي بقوس بدل خط مستقيم
+      cur.cam.lerpVectors(from.cam, to.cam, e); cur.cam.y += Math.sin(e * Math.PI) * Math.min(40, from.cam.distanceTo(to.cam) * .35);
+      env.k = e; walkU = walkFrom + (walkTo - walkFrom) * e;
+      if (k >= 1) { to = null; env.a = env.b; env.k = 1; }
+    } else if (!started) {
+      const a = now * .00004; cur.cam.set(Math.cos(a) * 62 + 5, 38, Math.sin(a) * 40 + 30); cur.at.set(5, 0, 2);   // دوران بطيء فوق الوادي في البداية
+    }
+    if (pathCurve) walker.position.copy(pathCurve.getPoint(Math.max(0, Math.min(1, walkU))));
+    halo.scale.setScalar(1 + .25 * Math.sin(now * .004));
+    beam.material.opacity = .4 + .2 * Math.sin(now * .003);
+    cam.position.copy(cur.cam); cam.lookAt(cur.at);
+    applyEnv(); R.render(S, cam); if (ready) placeLabels();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // تحميل الصورتين ثم بناء الأرض
+  $('start').disabled = true; $('start').dataset.wait = '1';
+  const loadImg = (src) => new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src; });
+  Promise.all([loadImg('dem.png'), new Promise((res, rej) => new THREE.TextureLoader().load('sat.jpg', res, undefined, rej))]).then(([dem, tex]) => {
+    const c = document.createElement('canvas'); c.width = DW = dem.naturalWidth; c.height = DH = dem.naturalHeight;
+    const x = c.getContext('2d'); x.drawImage(dem, 0, 0); const px = x.getImageData(0, 0, DW, DH).data;
+    DEM = new Float32Array(DW * DH); for (let i = 0; i < DW * DH; i++) DEM[i] = GEO.lo + px[i * 4] / 255 * (GEO.hi - GEO.lo);
+    build(tex); stations();
+    lblEls = labels.map(() => { const e = document.createElement('span'); e.className = 'lbl'; $('labels').append(e); return e; });
+    ready = true; applyUI(); $('start').disabled = false; delete $('start').dataset.wait;
+  }).catch(() => { $('busy').textContent = 'ما قدرنا نحمّل الخريطة. حدّث الصفحة.'; $('busy').hidden = false; });
+
+  /* ---------- الواجهة ---------- */
+  let idx = 0;
+  const sel = $('lang');
+  for (const [k, [n]] of Object.entries(LANGS)) { const o = document.createElement('option'); o.value = k; o.textContent = n; sel.append(o); }
+  try { const g = (navigator.language || 'ar').slice(0, 2); if (LANGS[g]) sel.value = g; } catch (e) { }
+  function applyUI() {
+    const u = T.ui; document.documentElement.lang = L; document.documentElement.dir = LANGS[L][1];
+    $('tK').textContent = u.k; $('tH').textContent = u.h; $('tP').textContent = u.p; $('tL').textContent = u.lang; $('tC').textContent = u.camp; $('start').textContent = u.start;
+    $('prev').textContent = u.prev; $('guideBtn').textContent = u.guide; $('gH').textContent = u.gh; $('qGo').textContent = u.ask; $('q').placeholder = u.q; $('gN').textContent = u.note;
+    labels.forEach((l, i) => { lblEls[i].textContent = T.st[l.key].title; });
+    campLbl.textContent = u.yourCamp + (camp ? ' · ' + camp : '');
+  }
+  function show(i) {
+    idx = i; const s = T.st[i];
+    $('pDay').textContent = s.day; $('pTime').textContent = s.time; $('pTitle').textContent = s.title; $('pBody').textContent = s.body;
+    $('pTip').replaceChildren(Object.assign(document.createElement('b'), { textContent: T.ui.tipW + ': ' }), s.tip + (i === 0 && camp ? ' (' + T.ui.yourCamp + ': ' + camp + ')' : ''));
+    $('prev').disabled = i === 0; $('next').textContent = i === T.st.length - 1 ? T.ui.end : T.ui.next;
+    $('dots').replaceChildren(...T.st.map((_, k) => { const d = document.createElement('i'); if (k === i) d.className = 'on'; return d; }));
+    $('panel').classList.remove('on'); void $('panel').offsetWidth; $('panel').classList.add('on');
+    goTo(ST[i]);
+  }
+  $('next').addEventListener('click', () => show(idx === T.st.length - 1 ? 0 : idx + 1));
+  $('prev').addEventListener('click', () => idx > 0 && show(idx - 1));
+  addEventListener('keydown', (e) => { if (!started || document.activeElement === $('q')) return; const rtl = LANGS[L][1] === 'rtl'; if (e.key === (rtl ? 'ArrowLeft' : 'ArrowRight')) $('next').click(); if (e.key === (rtl ? 'ArrowRight' : 'ArrowLeft')) $('prev').click(); });
+
+  /* ---------- الذكاء الاصطناعي: ترجمة المحتوى لأي لغة، والمرشد ---------- */
+  let sample = null;
+  (async () => { try { sample = window.claude ? await claude.use('sample') : null; } catch (e) { sample = null; } })();
+  async function translate(lang) {
+    if (lang === 'ar') return AR;
+    const R0 = window.TR && window.TR[lang];   // ترجمة جاهزة داخل الصفحة
+    if (R0) return { ui: { ...AR.ui, ...R0.ui }, st: AR.st.map((s, i) => ({ ...s, ...(R0.st[i] || {}) })) };
+    if (!sample) return null;
+    $('busy').textContent = '…'; $('busy').hidden = false;
+    try {
+      const out = await sample.json('Translate this Hajj rehearsal content from Arabic into ' + LANGS[lang][0] + ' (language code ' + lang + '). Keep the meaning exact, keep Islamic terms accurate, simple words for elderly pilgrims. Keep the same JSON shape and keys; translate only the string values. Reply with only the JSON.\n\n' + JSON.stringify(AR), { modelTier: 'default', cache: { gcTime: 86400000 } });
+      if (out && out.ui && Array.isArray(out.st) && out.st.length === AR.st.length) return { ui: { ...AR.ui, ...out.ui }, st: out.st.map((s, i) => ({ ...AR.st[i], ...s })) };
+    } catch (e) { } finally { $('busy').hidden = true; }
+    return null;
+  }
+  $('start').addEventListener('click', async () => {
+    camp = $('camp').value.trim(); const want = sel.value;
+    $('start').disabled = true;
+    const tr = await translate(want);
+    if (tr) { L = want; T = tr; } else { L = 'ar'; T = AR; }
+    $('start').disabled = false; applyUI();
+    started = true; $('intro').classList.add('gone'); $('panel').hidden = false; $('guideBtn').hidden = !sample; show(0);
+  });
+  $('guideBtn').addEventListener('click', () => { $('guide').hidden = !$('guide').hidden; if (!$('guide').hidden) $('q').focus(); });
+  const turns = [];
+  async function ask() {
+    const q = $('q').value.trim(); if (!q || !sample) return; $('q').value = '';
+    const u = document.createElement('p'); u.className = 'm u'; u.textContent = q; u.dir = 'auto'; $('chat').append(u);
+    const a = document.createElement('p'); a.className = 'm a'; a.textContent = '…'; a.dir = 'auto'; $('chat').append(a); $('chat').scrollTop = 1e6;
+    const s = AR.st[idx];
+    const rules = 'You are a kind Hajj rehearsal guide inside a campaign\'s pre-trip app. The pilgrim is at the station "' + s.title + '" (' + s.day + '): ' + s.body + ' Tip: ' + s.tip + (camp ? ' Their Mina camp: ' + camp + '.' : '') +
+      ' Answer in ' + LANGS[L][0] + ', in 2-5 short simple sentences suitable for an elderly first-time pilgrim. Practical guidance only; for detailed fiqh rulings or disputed matters say briefly that they should ask the campaign\'s religious guide or Nusuk AI. Never invent times, places or numbers you are not sure of.';
+    turns.push({ role: 'user', content: q });
+    try {
+      const { text } = await sample([{ role: 'user', content: rules }, ...turns.slice(-6)], { cache: false, modelTier: 'quick', onText: ({ text }) => { a.textContent = text; $('chat').scrollTop = 1e6; } });
+      turns.push({ role: 'assistant', content: text });
+    } catch (e) { a.textContent = e.text || (e.code === 'rate_limited' ? 'Try again shortly.' : '—'); turns.pop(); }
+  }
+  $('qGo').addEventListener('click', ask);
+  $('q').addEventListener('keydown', (e) => { if (e.key === 'Enter') ask(); });
+  applyUI();
+})();
+</script>
+</body></html>
